@@ -1,0 +1,3 @@
+c:\lazarus\tools\lazres calibrary.lrs .\images\tcamatrix.png .\images\tcabooleanmatrix.png .\images\tcadatetimematrix.png .\images\tcadoublematrix.png .\images\tcaintegermatrix.png .\images\tcaint64matrix.png .\images\tcamemomatrix.png .\images\tcaobjectmatrix.png .\images\tcasinglematrix.png .\images\tcastringmatrix.png .\images\tcauint32matrix.png .\images\tcauint64matrix.png
+c:\lazarus\tools\lazres casizemovepanel.lrs .\images\blank.png .\images\clone.png .\images\close.png .\images\collapse.png .\images\expand.png
+pause

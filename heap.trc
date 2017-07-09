@@ -1,0 +1,16 @@
+C:\lazarus\tools\glazres\glazres.exe 
+Heap dump by heaptrc unit
+18641 memory blocks allocated : 8330537/8340232
+18641 memory blocks freed     : 8330537/8340232
+0 unfreed memory blocks : 0
+True heap size : 262144
+True free heap : 261984
+Should be : 262144
+C:\lazarus\tools\glazres\glazres.exe 
+Heap dump by heaptrc unit
+12391 memory blocks allocated : 4862782/4874744
+12391 memory blocks freed     : 4862782/4874744
+0 unfreed memory blocks : 0
+True heap size : 229376
+True free heap : 229216
+Should be : 229376

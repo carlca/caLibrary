@@ -1,0 +1,28 @@
+object caDbgForm: TcaDbgForm
+  Left = 0
+  Height = 411
+  Top = 0
+  Width = 422
+  BorderWidth = 2
+  Caption = 'Debug'
+  ClientHeight = 411
+  ClientWidth = 422
+  FormStyle = fsStayOnTop
+  LCLVersion = '1.6.4.0'
+  Visible = False
+  object List: TListView
+    Left = 2
+    Height = 407
+    Top = 2
+    Width = 418
+    Align = alClient
+    AutoSort = False
+    Columns = <>
+    GridLines = True
+    OwnerData = True
+    ParentFont = False
+    ScrollBars = ssVertical
+    TabOrder = 0
+    OnData = ListData
+  end
+end

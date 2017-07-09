@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="caLibrary"/>
+    <Type Value="RunAndDesignTime"/>
+    <Author Value="Carl Caulkett"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Linking>
+        <Debugging>
+          <DebugInfoType Value="dsDwarf2Set"/>
+        </Debugging>
+      </Linking>
+      <Other>
+        <CompilerMessages>
+          <IgnoredMessages idx11031="True" idx11030="True"/>
+        </CompilerMessages>
+      </Other>
+    </CompilerOptions>
+    <Version Major="1" Minor="1"/>
+    <Files Count="34">
+      <Item1>
+        <Filename Value="cacell.pas"/>
+        <UnitName Value="caCell"/>
+      </Item1>
+      <Item2>
+        <Filename Value="cacellmanager.pas"/>
+        <UnitName Value="caCellManager"/>
+      </Item2>
+      <Item3>
+        <Filename Value="caclasses.pas"/>
+        <UnitName Value="caClasses"/>
+      </Item3>
+      <Item4>
+        <Filename Value="caconsts.pas"/>
+        <UnitName Value="caConsts"/>
+      </Item4>
+      <Item5>
+        <Filename Value="cacontrols.pas"/>
+        <UnitName Value="caControls"/>
+      </Item5>
+      <Item6>
+        <Filename Value="camatrix.pas"/>
+        <UnitName Value="caMatrix"/>
+      </Item6>
+      <Item7>
+        <Filename Value="camatrixtools.pas"/>
+        <UnitName Value="caMatrixTools"/>
+      </Item7>
+      <Item8>
+        <Filename Value="caparser.pas"/>
+        <UnitName Value="caParser"/>
+      </Item8>
+      <Item9>
+        <Filename Value="cartti.pas"/>
+        <UnitName Value="caRtti"/>
+      </Item9>
+      <Item10>
+        <Filename Value="casparsematrix.pas"/>
+        <UnitName Value="caSparseMatrix"/>
+      </Item10>
+      <Item11>
+        <Filename Value="cautils.pas"/>
+        <UnitName Value="caUtils"/>
+      </Item11>
+      <Item12>
+        <Filename Value="cautilsstring.inc"/>
+        <Type Value="Include"/>
+      </Item12>
+      <Item13>
+        <Filename Value="caxmlreader.pas"/>
+        <UnitName Value="caXmlReader"/>
+      </Item13>
+      <Item14>
+        <Filename Value="casizemovepanel.pas"/>
+        <UnitName Value="caSizeMovePanel"/>
+      </Item14>
+      <Item15>
+        <Filename Value="catypes.pas"/>
+        <UnitName Value="caTypes"/>
+      </Item15>
+      <Item16>
+        <Filename Value="caxmlwriter.pas"/>
+        <UnitName Value="caXmlWriter"/>
+      </Item16>
+      <Item17>
+        <Filename Value="camathvector.pas"/>
+        <UnitName Value="caMathVector"/>
+      </Item17>
+      <Item18>
+        <AddToUsesPkgSection Value="False"/>
+      </Item18>
+      <Item19>
+        <Filename Value="calibraryreg.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="caLibraryReg"/>
+      </Item19>
+      <Item20>
+        <Filename Value="casizemovepanel.lrs"/>
+        <UnitName Value="casizemovepanel"/>
+      </Item20>
+      <Item21>
+        <Filename Value="calistbox.pas"/>
+        <UnitName Value="caListBox"/>
+      </Item21>
+      <Item22>
+        <Filename Value="cautils.inc"/>
+        <Type Value="Include"/>
+        <AddToUsesPkgSection Value="True"/>
+      </Item22>
+      <Item23>
+        <Filename Value="cautilsmath.inc"/>
+        <Type Value="Include"/>
+        <AddToUsesPkgSection Value="True"/>
+      </Item23>
+      <Item24>
+        <Filename Value="cautilscolor.inc"/>
+        <UnitName Value="cautilscolor"/>
+      </Item24>
+      <Item25>
+        <Filename Value="caobserver.pas"/>
+        <UnitName Value="caObserver"/>
+      </Item25>
+      <Item26>
+        <Filename Value="cavector.pas"/>
+        <UnitName Value="caVector"/>
+      </Item26>
+      <Item27>
+        <AddToUsesPkgSection Value="False"/>
+      </Item27>
+      <Item28>
+        <Filename Value="cadbg.pas"/>
+        <UnitName Value="caDbg"/>
+      </Item28>
+      <Item29>
+        <Filename Value="cajsonconfig.pas"/>
+        <UnitName Value="cajsonconfig"/>
+      </Item29>
+      <Item30>
+        <Filename Value="cargbspinedit.pas"/>
+        <UnitName Value="cargbspinedit"/>
+      </Item30>
+      <Item31>
+        <Filename Value="cadbgintf.pas"/>
+        <UnitName Value="cadbgintf"/>
+      </Item31>
+      <Item32>
+        <Filename Value="cadbgformunit.lfm"/>
+        <Type Value="LFM"/>
+      </Item32>
+      <Item33>
+        <Filename Value="cadbgformunit.pas"/>
+        <UnitName Value="cadbgformunit"/>
+      </Item33>
+      <Item34>
+        <Filename Value="caunicodestringlist.pas"/>
+        <UnitName Value="caunicodestringlist"/>
+      </Item34>
+    </Files>
+    <RequiredPkgs Count="3">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCLBase"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+    <CustomOptions Items="ExternHelp" Version="2">
+      <_ExternHelp Items="Count"/>
+    </CustomOptions>
+  </Package>
+</CONFIG>
