@@ -37,7 +37,10 @@ uses
   Graphics,
   Forms,
   ExtCtrls,
-  Dialogs;
+  Dialogs,
+  caClasses,
+  caUtils,
+  caDbg;
 
 type
 
@@ -223,6 +226,16 @@ type
     property OnUnDock;
   end;
 
+  { TcaControlUtils }
+
+  TcaControlUtils = class
+  public
+    class procedure SetExclusiveColor(AControl: TControl; AParent: TWinControl; AClass: TControlClass;
+      AColor, ADefaultColor: TColor);
+  end;
+
+  ControlUtils = class(TcaControlUtils);
+
 implementation
 
 // TcaCustomPanel
@@ -318,6 +331,28 @@ begin
       DoBeforeShowForm(FForm);
       FForm.Show;
     end;
+end;
+
+{ TcaControlUtils }
+
+class procedure TcaControlUtils.SetExclusiveColor(AControl: TControl; AParent: TWinControl; AClass: TControlClass;
+  AColor, ADefaultColor: TColor);
+var
+  Comp: TComponent;
+  Index: Integer;
+  OwnedComps: TcaOwnedComponents;
+begin
+  OwnedComps := TcaOwnedComponents.Create(AParent);
+  for Index := 0 to Pred(OwnedComps.Count) do
+    begin
+      Comp := OwnedComps.Components[Index];
+      if Comp is AClass then
+        begin
+          if Comp <> AControl then
+            TControl(Comp).Color := ADefaultColor;
+        end;
+    end;
+  TControl(AControl).Color := AColor;
 end;
 
 end.

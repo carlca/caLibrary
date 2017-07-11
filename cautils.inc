@@ -121,8 +121,7 @@ begin
     else Result := crSecondGreater;
 end;
 
-class function TcaUtils.CompareMemos(const Item1, Item2: TStrings;
-  ACaseInsensitive: Boolean): TcaCompareResult;
+class function TcaUtils.CompareMemos(const Item1, Item2: TStrings; ACaseInsensitive: Boolean): TcaCompareResult;
 var
   S1, S2: string;
 begin
@@ -156,8 +155,7 @@ begin
     else Result := crSecondGreater;
 end;
 
-class function TcaUtils.CompareStrings(const Item1, Item2: string;
-  ACaseInsensitive: Boolean): TcaCompareResult;
+class function TcaUtils.CompareStrings(const Item1, Item2: string; ACaseInsensitive: Boolean): TcaCompareResult;
 var
   S1, S2: string;
 begin

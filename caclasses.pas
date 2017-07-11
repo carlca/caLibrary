@@ -45,6 +45,10 @@ type
 
   EcaClassException = class(EcaException);
 
+// TcaAddComponentEvent
+
+  TcaAddComponentEvent = procedure(Sender: TObject; AComponent: TComponent; var AAccept: Boolean) of object;
+
 // IcaString
 
   IcaString = interface
@@ -198,6 +202,34 @@ type
     function Pop: string;
     function Push(const AItem: string): Integer;
     function Size: Integer;
+  end;
+
+  // TcaOwnedComponents
+
+  TcaOwnedComponents = class(TObject)
+  private
+    // private fields 
+    FComponents: TList;
+    FOnAddComponent: TcaAddComponentEvent;
+    FRootComponent: TComponent;
+    // property methods 
+    function GetComponent(Index: Integer): TComponent;
+    function GetCount: Integer;
+    // private methods 
+    procedure AddComponents;
+    procedure AddComponents_Recursed(AComponent: TComponent);
+  protected
+    // protected methods 
+    procedure DoAddComponent(AComponent: TComponent; var AAccept: Boolean); virtual;
+  public
+    // create/destroy 
+    constructor Create(ARootComponent: TComponent);
+    destructor Destroy; override;
+    // properties 
+    property Components[Index: Integer]: TComponent read GetComponent;
+    property Count: Integer read GetCount;
+    // event properties 
+    property OnAddComponent: TcaAddComponentEvent read FOnAddComponent write FOnAddComponent;
   end;
 
 implementation
@@ -544,6 +576,70 @@ end;
 function TcaStringStack.Size: Integer;
 begin
   Result := FLines.Count;
+end;
+
+// TcaOwnedComponents                                                        
+
+// Create/Destroy 
+
+constructor TcaOwnedComponents.Create(ARootComponent: TComponent);
+begin
+  inherited Create;
+  FComponents := TList.Create;
+  FRootComponent := ARootComponent;
+  AddComponents;
+end;
+
+destructor TcaOwnedComponents.Destroy;
+begin
+  FComponents.Free;
+  inherited;
+end;
+
+// Protected methods 
+
+procedure TcaOwnedComponents.DoAddComponent(AComponent: TComponent; var AAccept: Boolean);
+begin
+  if Assigned(FOnAddComponent) then FOnAddComponent(Self, AComponent, AAccept);
+end;
+
+// Private methods 
+
+procedure TcaOwnedComponents.AddComponents;
+begin
+  FComponents.Clear;
+  AddComponents_Recursed(FRootComponent);
+end;
+
+procedure TcaOwnedComponents.AddComponents_Recursed(AComponent: TComponent);
+var
+  Accept: Boolean;
+  Comp: TComponent;
+  Index: Integer;
+begin
+  for Index := 0 to Pred(AComponent.ComponentCount) do
+    begin
+      Comp := AComponent.Components[Index];
+      Accept := True;
+      DoAddComponent(Comp, Accept);
+      if Accept then
+        begin
+          FComponents.Add(Comp);
+          AddComponents_Recursed(Comp);
+        end;
+    end;
+end;
+
+// Property methods 
+
+function TcaOwnedComponents.GetComponent(Index: Integer): TComponent;
+begin
+  Result := TComponent(FComponents[Index]);
+end;
+
+function TcaOwnedComponents.GetCount: Integer;
+begin
+  Result := FComponents.Count;
 end;
 
 end.

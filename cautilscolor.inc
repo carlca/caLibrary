@@ -50,6 +50,9 @@ begin
     TColor($F0FBFF):                                          Result := 'clCream';
     TColor($A4A0A0):                                          Result := 'clMedGray';
 
+    clNone:                                                   Result := 'clNone';
+    clDefault:                                                Result := 'clDefault';
+
     TColor(SYS_COLOR_BASE or COLOR_SCROLLBAR):                Result := 'clScrollBar';
     TColor(SYS_COLOR_BASE or COLOR_BACKGROUND):               Result := 'clBackground';
     TColor(SYS_COLOR_BASE or COLOR_ACTIVECAPTION):            Result := 'clActiveCaption';

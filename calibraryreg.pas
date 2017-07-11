@@ -45,7 +45,9 @@ uses
   caMatrixTools,
   caSizeMovePanel,
   cargbspinedit,
-  caListBox;
+  caListBox,
+  cafontselecter,
+  caspeedbutton;
 
 procedure Register;
 begin
@@ -57,6 +59,8 @@ begin
   RegisterComponents('caControls', [TcaPanel]);
   RegisterComponents('caControls', [TcaFormPanel]);
   RegisterComponents('caControls', [TcaRGBSpinEdit]);
+  RegisterComponents('caControls', [TcaFontSelecter]);
+  RegisterComponents('caControls', [TcaSpeedButton]);
 
 {$IFDEF WINDOWS}
   RegisterComponents('caControls', [TcaSizeMovePanel]);

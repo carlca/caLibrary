@@ -59,12 +59,10 @@ type
     class function CompareDoubles(const Item1, Item2: Double): TcaCompareResult;
     class function CompareIntegers(const Item1, Item2: Integer): TcaCompareResult;
     class function CompareInt64s(const Item1, Item2: Int64): TcaCompareResult;
-    class function CompareMemos(const Item1, Item2: TStrings;
-      ACaseInsensitive: Boolean = False): TcaCompareResult;
+    class function CompareMemos(const Item1, Item2: TStrings; ACaseInsensitive: Boolean = False): TcaCompareResult;
     class function CompareObjects(const Item1, Item2: TObject): TcaCompareResult;
     class function CompareSingles(const Item1, Item2: Single): TcaCompareResult;
-    class function CompareStrings(const Item1, Item2: string;
-      ACaseInsensitive: Boolean = False): TcaCompareResult;
+    class function CompareStrings(const Item1, Item2: string; ACaseInsensitive: Boolean = False): TcaCompareResult;
     class function CompareUInt32s(const Item1, Item2: UInt32): TcaCompareResult;
     class function CompareUInt64s(const Item1, Item2: UInt64): TcaCompareResult;
     // Rtti methods

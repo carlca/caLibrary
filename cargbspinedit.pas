@@ -33,7 +33,7 @@ interface
 
 uses
   Classes, SysUtils, Controls, StdCtrls, ExtCtrls, Graphics, Buttons, ComCtrls,
-  Dialogs, TypInfo, caDbg, LclIntf, caUtils;
+  Dialogs, TypInfo, caDbg, LclIntf, caUtils, caControls;
 
 const
   cEditWidth = 26;
@@ -124,13 +124,7 @@ begin
 end;
 
 destructor TcaRGBSpinEdit.Destroy;
-var
-  Edit: TEdit;
 begin
-  for Edit in FEdits do
-    Edit.Free;
-  FPrefix.Free;
-  FUpDown.Free;
   inherited Destroy;
 end;
 
@@ -138,7 +132,7 @@ function TcaRGBSpinEdit.CreateEdit(Index: Integer): TEdit;
 var
   Edit: TEdit;
 begin
-  Edit := TEdit.Create(nil);
+  Edit := TEdit.Create(Self);
   Edit.Parent := Self;
   Edit.Left := 12 + Index * cEditWidth;
   Edit.Top := 0;
@@ -160,7 +154,7 @@ function TcaRGBSpinEdit.CreateLabel: TLabel;
 var
   Lbl: TLabel;
 begin
-  Lbl := TLabel.Create(nil);
+  Lbl := TLabel.Create(Self);
   Lbl.Parent := Self;
   Lbl.Left := 2;
   Lbl.Top := 3;
@@ -173,7 +167,7 @@ function TcaRGBSpinEdit.CreateUpDown: TUpDown;
 var
   UpDown: TUpDown;
 begin
-  UpDown := TUpDown.Create(nil);
+  UpDown := TUpDown.Create(Self);
   UpDown.Left := FEdits[2].Left + FEdits[2].Width + 2;
   UpDown.Top := 0;
   UpDown.Width := 16;
@@ -191,13 +185,6 @@ procedure TcaRGBSpinEdit.DoEditChanged;
 var
   ColorVal: TColor;
 begin
-  {$IFDEF DBG}
-  DbgMethod(dmForm);
-  Dbg_;
-  Dbg('FEdits[2]', FEdits[0].Text);
-  Dbg('FEdits[1]', FEdits[1].Text);
-  Dbg('FEdits[0]', FEdits[2].Text);
-  {$ENDIF}
   case FColorFormat of
     cfRGB:
       begin
@@ -224,13 +211,9 @@ begin
 end;
 
 procedure TcaRGBSpinEdit.EditEnterEvent(Sender: TObject);
-var
-  Edit: TEdit;
 begin
-  for Edit in FEdits do
-    Edit.Color := clDefault;
   FActiveEdit := TEdit(Sender);
-  FActiveEdit.Color := clHighlight;
+  ControlUtils.SetExclusiveColor(FActiveEdit, Parent, TEdit, clHighlight, clDefault);
 end;
 
 procedure TcaRGBSpinEdit.EditKeyPressEvent(Sender: TObject; var Key: char);
