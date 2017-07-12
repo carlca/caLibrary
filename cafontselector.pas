@@ -1,4 +1,4 @@
-unit cafontselecter;
+unit cafontselector;
 
 {$mode objfpc}{$H+}
 
@@ -10,9 +10,9 @@ uses
 
 type
 
-  { TcaFontSelecter }
+  { TcaFontSelector }
 
-  TcaFontSelecter = class(TCustomPanel)
+  TcaFontSelector = class(TCustomPanel)
   private
     FLabel: TLabel;
     FFontEdit: TEdit;
@@ -36,6 +36,8 @@ type
     procedure EditEnterEvent(Sender: TObject);
     procedure EditLeaveEvent(Sender: TObject);
     procedure EditKeyPressEvent(Sender: TObject; var Key: char);
+    procedure DropDownClickEvent(Sender: TObject);
+    procedure DialogBtnClickEvent(Sender: TObject);
   protected
     procedure CreateWnd; override;
     procedure BoundsChanged; override;
@@ -56,9 +58,12 @@ type
 
 implementation
 
-{ TcaFontSelecter }
+uses
+  cafontSelectorlist;
 
-constructor TcaFontSelecter.Create(AOwner: TComponent);
+{ TcaFontSelector }
+
+constructor TcaFontSelector.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   CreateChildControls;
@@ -71,13 +76,13 @@ begin
   UpdateSelectedFontProperties;
 end;
 
-destructor TcaFontSelecter.Destroy;
+destructor TcaFontSelector.Destroy;
 begin
   FSelectedFont.Free;
   inherited Destroy;
 end;
 
-procedure TcaFontSelecter.CreateChildControls;
+procedure TcaFontSelector.CreateChildControls;
 begin
   // Label
   FLabel := TLabel.Create(Self);
@@ -102,6 +107,7 @@ begin
   FDropDownBtn.Caption := #$E2#$96#$BC; // down arrow
   FDropDownBtn.Font.Size := 6;
   FDropDownBtn.Cursor := crArrow;
+  FDropDownBtn.OnClick := @DropDownClickEvent;
   // DialogBtn
   FDialogBtn := TcaSpeedButton.Create(Self);
   FDialogBtn.Parent := Self;
@@ -109,6 +115,7 @@ begin
   FDialogBtn.Font.Size := 8;
   FDialogBtn.Font.Style := [fsBold];
   FDialogBtn.Cursor := crArrow;
+  FDialogBtn.OnClick := @DialogBtnClickEvent;
   // FontSizeEdit
   FFontSizeEdit := TEdit.Create(Self);
   FFontSizeEdit.Name := 'FontSizeEdit';
@@ -130,17 +137,17 @@ begin
   FFontSizeUpDown.OnClick := @UpDownClickEvent;
 end;
 
-function TcaFontSelecter.GetLabelCaption: string;
+function TcaFontSelector.GetLabelCaption: string;
 begin
   Result := FLabel.Caption;
 end;
 
-function TcaFontSelecter.GetLabelWidth: Integer;
+function TcaFontSelector.GetLabelWidth: Integer;
 begin
   Result := FLabelWidth;
 end;
 
-procedure TcaFontSelecter.PositionChildControls;
+procedure TcaFontSelector.PositionChildControls;
 begin
   // Label
   FLabel.SetBounds(0, 0, FLabelWidth, Self.Height - 1);
@@ -158,24 +165,24 @@ begin
   FFontSizeUpDown.SetBounds(Self.Width -              14,  0, 14, 22);
 end;
 
-procedure TcaFontSelecter.SetLabelCaption(AValue: string);
+procedure TcaFontSelector.SetLabelCaption(AValue: string);
 begin
   FLabel.Caption := AValue;
   PositionChildControls;
 end;
 
-procedure TcaFontSelecter.SetLabelWidth(AValue: Integer);
+procedure TcaFontSelector.SetLabelWidth(AValue: Integer);
 begin
   FLabelWidth := AValue;
   PositionChildControls;
 end;
 
-procedure TcaFontSelecter.LabelFontChangeEvent(Sender: TObject);
+procedure TcaFontSelector.LabelFontChangeEvent(Sender: TObject);
 begin
   PositionChildControls;
 end;
 
-procedure TcaFontSelecter.InitSelectedFontProperties;
+procedure TcaFontSelector.InitSelectedFontProperties;
 var
   FontData: TFontData;
   // PPI: Integer;
@@ -187,14 +194,15 @@ begin
   FSelectedFont.Size := 10; // -MulDiv(FontData.Height, 72, PPI) // This should give Size as a +ve valueend;
 end;
 
-procedure TcaFontSelecter.UpdateSelectedFontProperties;
+procedure TcaFontSelector.UpdateSelectedFontProperties;
 begin
   FFontEdit.Text := FSelectedFont.Name;
   FFontSizeEdit.Text := IntToStr(FSelectedFont.Size);
 end;
 
-procedure TcaFontSelecter.UpDownClickEvent(Sender: TObject; Button: TUDBtnType);
+procedure TcaFontSelector.UpDownClickEvent(Sender: TObject; Button: TUDBtnType);
 begin
+  FFontSizeEdit.SetFocus;
   case Button of
     btNext:   FSelectedFont.Size := FSelectedFont.Size + 1;
     btPrev:   FSelectedFont.Size := FSelectedFont.Size - 1;
@@ -204,34 +212,56 @@ begin
   UpdateSelectedFontProperties;
 end;
 
-procedure TcaFontSelecter.EditChangeEvent(Sender: TObject);
+procedure TcaFontSelector.EditChangeEvent(Sender: TObject);
 begin
   FSelectedFont.Size := StrToInt(FFontSizeEdit.Text);
 end;
 
-procedure TcaFontSelecter.EditEnterEvent(Sender: TObject);
+procedure TcaFontSelector.EditEnterEvent(Sender: TObject);
 begin
   ControlUtils.SetExclusiveColor(Sender as TControl, Self, TEdit, clHighlight, clDefault);
 end;
 
-procedure TcaFontSelecter.EditLeaveEvent(Sender: TObject);
+procedure TcaFontSelector.EditLeaveEvent(Sender: TObject);
 begin
   FFontSizeEdit.Color := clDefault;
   FFontSizeEdit.SelLength := 0;
 end;
 
-procedure TcaFontSelecter.EditKeyPressEvent(Sender: TObject; var Key: char);
+procedure TcaFontSelector.EditKeyPressEvent(Sender: TObject; var Key: char);
 begin
   Key := #0;
 end;
 
-procedure TcaFontSelecter.CreateWnd;
+procedure TcaFontSelector.DropDownClickEvent(Sender: TObject);
+var
+  DropDownForm: TcaFontSelectorForm;
+begin
+  FFontEdit.SetFocus;
+  DropDownForm := TcaFontSelectorForm.Create(nil);
+  try
+    DropDownForm.Left := FFontEdit.ClientOrigin.X;
+    DropDownForm.Top := FFontEdit.ClientOrigin.Y + FFontEdit.Height - 3;
+    DropDownForm.Width := FFontEdit.Width + 20;
+    DropDownForm.Height := 200;
+    DropDownForm.ShowModal;
+  finally
+    DropDownForm.Free;
+  end;
+end;
+
+procedure TcaFontSelector.DialogBtnClickEvent(Sender: TObject);
+begin
+  FFontEdit.SetFocus;
+end;
+
+procedure TcaFontSelector.CreateWnd;
 begin
   inherited CreateWnd;
   PositionChildControls;
 end;
 
-procedure TcaFontSelecter.BoundsChanged;
+procedure TcaFontSelector.BoundsChanged;
 begin
   inherited BoundsChanged;
   if not (csLoading in ComponentState) then

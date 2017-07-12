@@ -12,8 +12,8 @@ uses
   caMatrixTools, caParser, caRtti, caSparseMatrix, caUtils, caXmlReader, 
   caSizeMovePanel, caTypes, caXmlWriter, caMathVector, caLibraryReg, 
   caListBox, caObserver, caVector, caDbg, cajsonconfig, cargbspinedit, 
-  cadbgintf, cadbgformunit, caunicodestringlist, cafontselecter, 
-  caspeedbutton, LazarusPackageIntf;
+  cadbgintf, cadbgformunit, caunicodestringlist, cafontselector, 
+  caspeedbutton, cafontselectorlist, LazarusPackageIntf;
 
 implementation
 
