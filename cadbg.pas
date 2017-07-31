@@ -38,7 +38,7 @@ uses
   caUtils;
 
 type
-  TcaDbgMethod = (dmForm, dmServer);
+  TcaDbgMethod = (dmNone, dmForm, dmServer);
 
 procedure Dbg(const S: string); overload;
 procedure Dbg(const AIdent, S: string); overload;
@@ -57,6 +57,8 @@ procedure DbgColor(const AIdent: string; AColor: TColor); overload;
 procedure DbgEnter(const S: string);
 procedure DbgExit(const S: string);
 procedure Dbg_;
+procedure DbgClear;
+procedure DbgSwap;
 
 procedure DbgMethod(AMethod: TcaDbgMethod);
 
@@ -125,49 +127,49 @@ end;
 procedure Dbg(const S: string);
 begin
   SelectDbg(S);
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent, S: string);
 begin
   SelectDbg(AIdent + ' = ' + S);
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent: string; IntValue: Integer);
 begin
   SelectDbg(AIdent + ' = ' + IntToStr(IntValue));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent: string; UInt32Value: UInt32);
 begin
   SelectDbg(AIdent + ' = ' + IntToStr(UInt32Value));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent: string; Int64Value: Int64);
 begin
   SelectDbg(AIdent + ' = ' + IntToStr(Int64Value));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent: string; UInt64Value: UInt64);
 begin
   SelectDbg(AIdent + ' = ' + IntToStr(UInt64Value));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent: string; SingleValue: Single);
 begin
   SelectDbg(AIdent + ' = ' + FloatToStr(SingleValue));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent: string; DoubleValue: Double);
 begin
   SelectDbg(AIdent + ' = ' + FloatToStr(DoubleValue));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent: string; BooleanValue: Boolean);
@@ -175,55 +177,66 @@ const
   Booleans : Array[Boolean] of string = ('False','True');
 begin
   SelectDbg(AIdent + ' = ' + Booleans[BooleanValue]);
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent: string; DateTimeValue: TDateTime);
 begin
   SelectDbg(AIdent + ' = ' + DateTimeToStr(DateTimeValue));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AIdent: string; PointerValue: Pointer);
 begin
   SelectDbg(AIdent + ' = ' + Format('%p', [PointerValue]));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(Args: array of const);
 begin
   SelectDbg(ArgsToString(Args));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg(const AFormat: string; Args: array of const);
 begin
   SelectDbg(Format(AFormat, Args));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure DbgColor(const AIdent: string; AColor: TColor);
 begin
   SelectDbg(AIdent + ' = ' + ColorUtils.ColorAsString(AColor));
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure DbgEnter(const S: string);
 begin
   SelectDbg('Entering > ' + S);
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure DbgExit(const S: string);
 begin
   SelectDbg('Exiting < ' + S);
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
 end;
 
 procedure Dbg_;
 begin
   SelectDbg('-');
-  Sleep(DbgSleep);
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
+end;
+
+procedure DbgClear;
+begin
+  SelectDbg('');
+  if DebugMethod <> dmNone then Sleep(DbgSleep);
+end;
+
+procedure DbgSwap;
+begin
+  SelectDbg('<^v/>');
 end;
 
 procedure DbgMethod(AMethod: TcaDbgMethod);
@@ -247,7 +260,10 @@ begin
       DbgForm.Add(S);
     end
   else
-    SendDebug(S);
+    begin
+      if DebugMethod = dmServer then
+        SendDebug(S);
+    end;
 end;
 
 end.

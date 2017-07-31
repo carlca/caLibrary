@@ -335,21 +335,45 @@ end;
 
 { TcaControlUtils }
 
+//class procedure TcaControlUtils.SetExclusiveColor(AControl: TControl; AParent: TWinControl; AClass: TControlClass;
+//  AColor, ADefaultColor: TColor);
+//var
+//  Comp: TComponent;
+//  Index: Integer;
+//  OwnedComps: TcaOwnedComponents;
+//begin
+//  DbgMethod(dmForm);
+//  Dbg('AControl', AControl.Name);
+//  Dbg('AParent', AParent.Name);
+//  OwnedComps := TcaOwnedComponents.Create(AParent);
+//  for Index := 0 to Pred(OwnedComps.Count) do
+//    begin
+//      Comp := OwnedComps.Components[Index];
+//      Dbg('Comp', Comp.Name);
+//      if Comp is AClass then
+//        begin
+//          if Comp <> AControl then
+//            TControl(Comp).Color := ADefaultColor;
+//        end;
+//    end;
+//  TControl(AControl).Color := AColor;
+//end;
+
 class procedure TcaControlUtils.SetExclusiveColor(AControl: TControl; AParent: TWinControl; AClass: TControlClass;
   AColor, ADefaultColor: TColor);
 var
-  Comp: TComponent;
+  Control: TControl;
   Index: Integer;
-  OwnedComps: TcaOwnedComponents;
+  ParentedControls: TcaParentedControls;
 begin
-  OwnedComps := TcaOwnedComponents.Create(AParent);
-  for Index := 0 to Pred(OwnedComps.Count) do
+  ParentedControls := TcaParentedControls.Create(AParent);
+  for Index := 0 to Pred(ParentedControls.Count) do
     begin
-      Comp := OwnedComps.Components[Index];
-      if Comp is AClass then
+      Control := ParentedControls.Controls[Index];
+      if Control is AClass then
         begin
-          if Comp <> AControl then
-            TControl(Comp).Color := ADefaultColor;
+          if Control <> AControl then
+            TControl(Control).Color := ADefaultColor;
         end;
     end;
   TControl(AControl).Color := AColor;

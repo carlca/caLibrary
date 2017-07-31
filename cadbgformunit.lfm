@@ -8,7 +8,7 @@ object caDbgForm: TcaDbgForm
   ClientHeight = 411
   ClientWidth = 422
   FormStyle = fsStayOnTop
-  LCLVersion = '1.6.4.0'
+  LCLVersion = '1.8.0.3'
   Visible = False
   object List: TListView
     Left = 2
@@ -18,6 +18,8 @@ object caDbgForm: TcaDbgForm
     Align = alClient
     AutoSort = False
     Columns = <>
+    Font.Height = -16
+    Font.Name = 'Monaco'
     GridLines = True
     OwnerData = True
     ParentFont = False

@@ -248,9 +248,14 @@ begin
     Result[Len - Index + 1] := S[Index];
 end;
 
-class function TcaStringUtils.Right(const S: string; N: Integer): String;
+class function TcaStringUtils.Right(const S: string; N: Integer): string;
 begin
   Result := Copy(S, Length(S) - N + 1, N);
+end;
+
+class function TcaStringUtils.Slice(const S: string; StartPos, EndPos: Integer): string;
+begin
+  Result := Copy(S, StartPos, EndPos - StartPos + 1);
 end;
 
 class function TcaStringUtils.SplitCamelCaps(const S: string): string;
@@ -267,6 +272,18 @@ begin
       Result := Result + C;
     end;
   Result := TrimLeft(Result);
+end;
+
+class function TcaStringUtils.StartsWith(const S: string; const AValue: string): Boolean;
+var
+  LeftSub: string;
+begin
+  Result := False;
+  if System.Length(AValue) <= System.Length(S) then
+    begin
+      LeftSub := Left(S, System.Length(AValue));
+      Result := AnsiSameStr(AValue, LeftSub);
+    end;
 end;
 
 class function TcaStringUtils.StripChar(const S: string; C: Char): string;

@@ -1,11 +1,40 @@
 object caFontSelectorForm: TcaFontSelectorForm
   Left = 0
-  Height = 240
+  Height = 206
   Top = 0
   Width = 320
   Caption = 'caFontSelectorForm'
-  ClientHeight = 240
+  ClientHeight = 206
   ClientWidth = 320
+  Font.Pitch = fpFixed
   OnDblClick = FormDblClick
+  LCLVersion = '1.8.0.3'
   Visible = False
+  object FontList: TListBox
+    Left = 0
+    Height = 206
+    Top = 0
+    Width = 320
+    Align = alClient
+    ExtendedSelect = False
+    Items.Strings = (
+      '1'
+      '2'
+      '3'
+      '4'
+      '5'
+      '6'
+      '7'
+      '8'
+      '9'
+      '10'
+    )
+    ItemHeight = 19
+    OnDblClick = FontListDblClick
+    OnKeyPress = FontListKeyPress
+    OnKeyDown = FontListKeyDown
+    OnSelectionChange = FontListSelectionChange
+    ParentFont = False
+    TabOrder = 0
+  end
 end

@@ -23,101 +23,24 @@
   Software Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA 02110-1335, USA.
 }
 
-unit cadbgformunit;
+// TcaUtilsFile
 
-{$mode objfpc}{$H+}
+// File/Filename related routines
 
-interface
-
-uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, Types, caunicodestringlist;
-
-type
-
-  { TcaDbgForm }
-
-  TcaDbgForm = class(TForm)
-    List: TListView;
-    procedure ListData(Sender: TObject; Item: TListItem);
-  private
-    { private declarations }
-    FData: TcaUnicodeStringList;
-    FReversed: Boolean;
-  public
-    { public declarations }
-    constructor Create(AOwner: TComponent); override;
-    destructor Destroy; override;
-    procedure Add(const S: string);
-    procedure Clear;
-  end;
-
+class function TcaFileUtils.CreateAltFileName(const FileName, Suffix: string): string;
 var
-  DbgForm: TcaDbgForm;
-
-implementation
-
-{$R *.lfm}
-
-{ TcaDbgForm }
-
-constructor TcaDbgForm.Create(AOwner: TComponent);
+  FolderName: string;
+  Extension: string;
+  FileNameNoExt: string;
+  NewFileName: string;
 begin
-  inherited Create(AOwner);
-  FData := TcaUnicodeStringList.Create;
-  FReversed := False;
+  FolderName := IncludeTrailingPathDelimiter(ExtractFileDir(FileName));
+  Extension := ExtractFileExt(FileName);
+  FileNameNoExt := StringUtils.DeleteFromEnd(ExtractFileName(FileName), Length(Extension));
+  NewFileName := ExtractFileName(FileNameNoExt) + Suffix;
+  Result := FolderName + NewFileName + Extension;
 end;
 
-destructor TcaDbgForm.Destroy;
-begin
-  FData.Free;
-  inherited Destroy;
-end;
 
-procedure TcaDbgForm.Add(const S: string);
-var
-  I: Integer;
-  DbgS: UnicodeString;
-begin
-  if S = '' then
-    begin
-      FData.Clear;
-      List.Items.Count := 0;
-      Exit;
-    end;
-  if S = '-' then
-    begin
-      DbgS := '';
-      for I := 1 to 200 do
-        DbgS := DbgS + UnicodeChar($2500); // '─';
-      Exit;
-    end;
-  if S = '<^v/>' then
-    begin
-      FReversed := not FReversed;
-      Exit;
-    end;
-  DbgS := S;
-  FData.Add(DbgS);
-  List.Items.Count := FData.Count;
-end;
 
-procedure TcaDbgForm.ListData(Sender: TObject; Item: TListItem);
-var
-  ListIndex: Integer;
-begin
-  if FReversed then
-    ListIndex := Pred(FData.Count) - Item.Index
-  else
-    ListIndex := Item.Index;
-  Item.Caption := FData[ListIndex];
-end;
-
-procedure TcaDbgForm.Clear;
-begin
-  FData.Clear;
-  List.Clear;
-end;
-
-end.
 

@@ -33,7 +33,8 @@ uses
 
 // FPC units
   Classes,
-  SysUtils;
+  SysUtils,
+  Controls;
 
 type
 
@@ -48,6 +49,10 @@ type
 // TcaAddComponentEvent
 
   TcaAddComponentEvent = procedure(Sender: TObject; AComponent: TComponent; var AAccept: Boolean) of object;
+
+  // TcaAddControlEvent
+
+    TcaAddControlEvent = procedure(Sender: TObject; AControl: TControl; var AAccept: Boolean) of object;
 
 // IcaString
 
@@ -230,6 +235,34 @@ type
     property Count: Integer read GetCount;
     // event properties 
     property OnAddComponent: TcaAddComponentEvent read FOnAddComponent write FOnAddComponent;
+  end;
+
+  // TcaParentedControls
+
+  TcaParentedControls = class(TObject)
+  private
+    // private fields 
+    FControls: TList;
+    FOnAddControl: TcaAddControlEvent;
+    FRootControl: TWinControl;
+    // property methods 
+    function GetControl(Index: Integer): TControl;
+    function GetCount: Integer;
+    // private methods 
+    procedure AddControls;
+    procedure AddControls_Recursed(AControl: TWinControl);
+  protected
+    // protected methods 
+    procedure DoAddControl(AControl: TWinControl; var AAccept: Boolean); virtual;
+  public
+    // create/destroy 
+    constructor Create(ARootControl: TWinControl);
+    destructor Destroy; override;
+    // properties 
+    property Controls[Index: Integer]: TControl read GetControl;
+    property Count: Integer read GetCount;
+    // event properties 
+    property OnAddControl: TcaAddControlEvent read FOnAddControl write FOnAddControl;
   end;
 
 implementation
@@ -640,6 +673,73 @@ end;
 function TcaOwnedComponents.GetCount: Integer;
 begin
   Result := FComponents.Count;
+end;
+
+// TcaParentedControls
+
+// Create/Destroy 
+
+constructor TcaParentedControls.Create(ARootControl: TWinControl);
+begin
+  inherited Create;
+  FControls := TList.Create;
+  FRootControl := ARootControl;
+  AddControls;
+end;
+
+destructor TcaParentedControls.Destroy;
+begin
+  FControls.Free;
+  inherited Destroy;
+end;
+
+// Protected methods 
+
+procedure TcaParentedControls.DoAddControl(AControl: TWinControl; var AAccept: Boolean);
+begin
+  if Assigned(FOnAddControl) then FOnAddControl(Self, AControl, AAccept);
+end;
+
+// private methods
+
+procedure TcaParentedControls.AddControls;
+begin
+  FControls.Clear;
+  AddControls_Recursed(FRootControl);
+end;
+
+procedure TcaParentedControls.AddControls_Recursed(AControl: TWinControl);
+var
+  Accept: Boolean;
+  Ctrl: TControl;
+  Index: Integer;
+begin
+  for Index := 0 to Pred(AControl.ControlCount) do
+    begin
+      Ctrl := AControl.Controls[Index];
+      if Ctrl is TWinControl then
+        begin
+          Accept := True;
+          DoAddControl(TWinControl(Ctrl), Accept);
+          if Accept then
+            begin
+              FControls.Add(TWinControl(Ctrl));
+              AddControls_Recursed(TWinControl(Ctrl));
+            end;
+        end;
+    end;
+end;
+
+// property methods
+
+function TcaParentedControls.GetControl(Index: Integer): TControl;
+begin
+  Result := TControl(FControls[Index]);
+end;
+
+function TcaParentedControls.GetCount: Integer;
+begin
+  Result := FControls.Count;
 end;
 
 end.

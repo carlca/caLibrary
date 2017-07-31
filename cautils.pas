@@ -67,10 +67,16 @@ type
     class function CompareUInt64s(const Item1, Item2: UInt64): TcaCompareResult;
     // Rtti methods
     class function TypeKindToStr(const ATypeKind: TTypeKind): string;
-    class procedure DumpRttiInfo(const AInstance: TObject; AStrings: TStrings;
-      ADelim: string = cComma); overload;
-    class procedure DumpRttiInfo(const AClass: TClass; AStrings: TStrings;
-      ADelim: string = cComma); overload;
+    class procedure DumpRttiInfo(const AInstance: TObject; AStrings: TStrings; ADelim: string = cComma); overload;
+    class procedure DumpRttiInfo(const AClass: TClass; AStrings: TStrings; ADelim: string = cComma); overload;
+  end;
+
+// TcaFileUtils
+
+  TcaFileUtils = class
+  public
+    // General methods
+    class function CreateAltFileName(const FileName, Suffix: string): string;
   end;
 
 // TcaStringUtils
@@ -102,8 +108,10 @@ type
     class function PreZero(const S: string; ALength: Integer): String;
     class function Replace(const S: string; const AOld, ANew: string): string;
     class function Reverse(const S: string): String;
-    class function Right(const S: string; N: Integer): String;
+    class function Right(const S: string; N: Integer): string;
+    class function Slice(const S: string; StartPos, EndPos: Integer): string;
     class function SplitCamelCaps(const S: string): string;
+    class function StartsWith(const S: string; const AValue: string): Boolean;
     class function StripChar(const S: string; C: Char): string;
     class function Str2Float(const S: string; Default: Extended): Extended;
     class function Str2Int(const S: string; Default: Integer): Integer;
@@ -168,6 +176,8 @@ type
 
   Utils = class(TcaUtils);
 
+  FileUtils = class(TcaFileUtils);
+
   StringUtils = class(TcaStringUtils);
 
   MathUtils = class(TcaMathUtils);
@@ -195,6 +205,7 @@ end;
 // TcaUtils
 
 {$include caUtils.inc}
+{$include caUtilsFile.inc}
 {$include caUtilsString.inc}
 {$include caUtilsMath.inc}
 {$include caUtilsColor.inc}

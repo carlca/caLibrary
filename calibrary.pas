@@ -13,7 +13,7 @@ uses
   caSizeMovePanel, caTypes, caXmlWriter, caMathVector, caLibraryReg, 
   caListBox, caObserver, caVector, caDbg, cajsonconfig, cargbspinedit, 
   cadbgintf, cadbgformunit, caunicodestringlist, cafontselector, 
-  caspeedbutton, cafontselectorlist, LazarusPackageIntf;
+  caspeedbutton, cafontselectorlist, cahint, LazarusPackageIntf;
 
 implementation
 

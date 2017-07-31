@@ -195,14 +195,12 @@ begin
   Result := cTypeKindNames[ATypeKind];
 end;
 
-class procedure TcaUtils.DumpRttiInfo(const AInstance: TObject;
-  AStrings: TStrings; ADelim: string);
+class procedure TcaUtils.DumpRttiInfo(const AInstance: TObject; AStrings: TStrings; ADelim: string);
 begin
   DumpRttiInfo(AInstance.ClassType, AStrings, ADelim);
 end;
 
-class procedure TcaUtils.DumpRttiInfo(const AClass: TClass; AStrings: TStrings;
-  ADelim: string);
+class procedure TcaUtils.DumpRttiInfo(const AClass: TClass; AStrings: TStrings; ADelim: string);
 var
   Rtti: TcaRttiList;
   Item: TcaRttiItem;
