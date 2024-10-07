@@ -5,7 +5,7 @@ unit caDbg;
 interface
 
 uses
-  Classes, SysUtils, DBugIntf, caHelper;
+  Classes, SysUtils, DBugIntf;
 
 procedure dbinit;
 procedure db(msg: string);
