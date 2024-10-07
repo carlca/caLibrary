@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Lazarus Version="3.99"/>
+  <Compiler Value="/Applications/Lazarus_trunk/fpc/bin/x86_64-darwin/fpc.sh" Date="1727724192"/>
+  <Params Value="-MObjFPC -Scghi -O1 -gw -gl -l -vewnhibq -Fu/Users/carlcaulkett/Code/FPC/caLibrary/ -Fu/Applications/Lazarus_trunk/lazarus/packager/units/x86_64-darwin -FU/Users/carlcaulkett/Code/FPC/caLibrary/lib/x86_64-darwin/ calibraryrun.pas"/>
+</CONFIG>
