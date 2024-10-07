@@ -2,13 +2,19 @@
 <CONFIG>
   <Package Version="5">
     <Name Value="calibraryrun"/>
-    <Type Value="RunAndDesignTime"/>
+    <Author Value="Carl Caulkett"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
       </SearchPaths>
     </CompilerOptions>
+    <Files>
+      <Item>
+        <Filename Value="cahelper.pas"/>
+        <UnitName Value="caHelper"/>
+      </Item>
+    </Files>
     <RequiredPkgs>
       <Item>
         <PackageName Value="FCL"/>

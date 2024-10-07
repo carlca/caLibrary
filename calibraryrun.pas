@@ -8,7 +8,7 @@ unit calibraryrun;
 interface
 
 uses
-  caHelper;
+  caHelper, caDbg;
 
 implementation
 

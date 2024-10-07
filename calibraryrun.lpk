@@ -6,13 +6,17 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Files>
       <Item>
         <Filename Value="cahelper.pas"/>
-        <UnitName Value="cahelper"/>
+        <UnitName Value="caHelper"/>
+      </Item>
+      <Item>
+        <Filename Value="cadbg.pas"/>
+        <UnitName Value="caDbg"/>
       </Item>
     </Files>
     <RequiredPkgs>
