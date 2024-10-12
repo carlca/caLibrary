@@ -8,7 +8,7 @@ unit caHelper;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, TypInfo;
 
 type
 

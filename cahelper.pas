@@ -1,6 +1,6 @@
 unit caHelper;
 
-{$if fpc_fullversion < 30301}{$error this program needs trunk}{$endif}
+//{$if fpc_fullversion < 30301}{$error this program needs trunk}{$endif}
 {$mode objfpc}{$H+}
 {$modeswitch typehelpers}
 {$modeswitch multihelpers}
