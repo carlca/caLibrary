@@ -6,10 +6,20 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
+    <Files>
+      <Item>
+        <Filename Value="calibraryreg.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="caLibraryReg"/>
+      </Item>
+    </Files>
     <RequiredPkgs>
+      <Item>
+        <PackageName Value="calibraryrun"/>
+      </Item>
       <Item>
         <PackageName Value="FCL"/>
       </Item>

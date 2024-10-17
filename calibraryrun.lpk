@@ -18,8 +18,16 @@
         <Filename Value="cadbg.pas"/>
         <UnitName Value="caDbg"/>
       </Item>
+      <Item>
+        <Filename Value="caedit.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="caEdit"/>
+      </Item>
     </Files>
     <RequiredPkgs>
+      <Item>
+        <PackageName Value="LCLBase"/>
+      </Item>
       <Item>
         <PackageName Value="FCL"/>
       </Item>
