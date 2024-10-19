@@ -23,6 +23,10 @@
         <HasRegisterProc Value="True"/>
         <UnitName Value="caEdit"/>
       </Item>
+      <Item>
+        <Filename Value="cautils.pas"/>
+        <UnitName Value="cautils"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
