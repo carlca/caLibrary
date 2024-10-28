@@ -1,5 +1,7 @@
 unit caEdit;
 
+// This code is based on TAviLabeledEdit by @Avishai, to whom, thanks :)
+
 {$mode objfpc}{$H+}
 
 interface
@@ -12,6 +14,7 @@ type
   TcaLabelPosition = (lpAbove, lpBelow, lpLeft, lpRight);
 
   TcaEdit = class(TCustomControl)
+
   private
     { Private declarations }
     FLabelPosition: TcaLabelPosition;
